@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:49:04 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/22 23:20:12 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/29 00:53:51 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strnstr(const char *big, const char *little,
 						size_t len);
+char				**ft_split(char const *s, char c);
+char				*ft_strtrim(char const *s1, char const *set);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *c);
@@ -57,7 +59,16 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strrchr(const char *str, int c);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
-
+// bonus
 t_list				*ft_lstnew(void *content);
+int					ft_lstsize(t_list *lst);
+void				ft_lstadd_front(t_list **lst, t_list *new);
+t_list				*ft_lstlast(t_list *lst);
+void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstdelone(t_list *lst, void (*del)(void *));
+void				ft_lstclear(t_list **lst, void (*del)(void *));
+void				ft_lstiter(t_list *lst, void (*f)(void *));
+t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
+						void (*del)(void *));
 
 #endif

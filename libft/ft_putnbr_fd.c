@@ -6,26 +6,41 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 01:01:09 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/23 20:04:57 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:38:59 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <fcntl.h>
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	nb;
+	long	nbr;
 
-	if (n == -2147483648)
-		ft_putstr_fd("-2147483648", fd);
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		nb = (unsigned int)(n * -1);
-	}
+	nbr = n;
+	if (nbr == 0)
+		ft_putchar_fd('0', fd);
 	else
-		nb = (unsigned int)n;
-	if (n >= 10)
-		ft_putnbr_fd(nb / 10, fd);
-	ft_putchar_fd((n % 10) + '0', fd);
+	{
+		if (nbr < 0 && nbr >= (-2147483647 - 1))
+		{
+			ft_putchar_fd('-', fd);
+			nbr = -nbr;
+		}
+		if (nbr > 9 && nbr <= 2147483648)
+		{
+			ft_putnbr_fd(nbr / 10, fd);
+			ft_putchar_fd(((nbr % 10) + '0'), fd);
+		}
+		else
+			ft_putchar_fd(((nbr % 10) + '0'), fd);
+	}
+}
+
+int main()
+{
+	int num=open("elquetuquieras.txt",O_WRONLY);
+	 ft_putnbr_fd(42, num);
+	return(0); 
+	
 }

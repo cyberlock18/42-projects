@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 00:03:52 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/23 20:06:25 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:51:26 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 	size_t	i;
 
 	i = 0;
-	if (!s || !f)
+	if (s && f)
 	{
 		while (s[i] != '\0')
 		{

@@ -6,63 +6,54 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:53:14 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/23 20:04:25 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:48:29 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// primero contabilizamos
-size_t	ft_countWords(char const *s, char c)
+static size_t	ft_countwrds(char const *s, char c)
 {
 	size_t	count;
-	int		tokn_word;
+	int		in_word;
 
+	in_word = 0;
 	count = 0;
 	while (*s)
 	{
-		tokn_word = 0;
-		while (*s == c && s != NULL)
-			s++;
-		while (*s != c && *s)
+		if (*s == c)
+			in_word = 0;
+		else if (in_word == 0)
 		{
-			if (tokn_word == 0)
-			{
-				count++;
-				tokn_word = 1;
-			}
-			s++;
+			in_word = 1;
+			count++;
 		}
+		s++;
 	}
 	return (count);
 }
-
-int	ft_MemSave(char **arrWrd, int i, size_t temp)
+ 
+static int	ft_memsave(char **arrWrd, int i, size_t temp)
 {
 	arrWrd[i] = malloc(temp);
 	if (arrWrd[i] == NULL)
-	{
-		while (i != 0)
-		{
-			free(arrWrd[i]);
-			i--;
-		}
 		return (1);
-	}
-	return (0);
+	else
+		return (0);
 }
 
-int	ft_putS(char **arrWrd, const char *s, char c)
+static int	ft_puts(char **arrwrd, const char *s, char c)
 {
-	int		i;
 	size_t	len;
+	int		i;
 
+	len = 0;
 	i = 0;
 	while (*s)
 	{
-		len = 0;
 		while (*s == c)
 			s++;
+		len = 0;
 		while (*s != c && *s)
 		{
 			len++;
@@ -70,9 +61,9 @@ int	ft_putS(char **arrWrd, const char *s, char c)
 		}
 		if (len > 0)
 		{
-			if (ft_MemSave(arrWrd, i, len + 1))
+			if (ft_memsave(arrwrd, i, len + 1))
 				return (1);
-			ft_strlcpy(arrWrd[i], s - len, len + 1);
+			ft_strlcpy(arrwrd[i], s - len, len + 1);
 			i++;
 		}
 	}
@@ -81,17 +72,38 @@ int	ft_putS(char **arrWrd, const char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	char	**arrWrd;
-	size_t	word;
+	size_t	word_count;
+	char	**arrwrd;
 
 	if (!s)
 		return (NULL);
-	word = ft_countWords(s, c);
-	arrWrd = malloc((word + 1) * sizeof(char *));
-	if (!arrWrd)
+	word_count = ft_countwrds(s, c);
+	arrwrd = malloc((word_count + 1) * sizeof(char *));
+	if (!arrwrd)
 		return (NULL);
-	arrWrd[word] = NULL;
-	if (ft_putS(arrWrd, s, c))
+	arrwrd[word_count] = NULL;
+	if (ft_puts(arrwrd, s, c))
+	{
+		free(arrwrd);
 		return (NULL);
-	return (arrWrd);
+	}
+	return (arrwrd);
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	char	str[] = "          hola    how   is   it            ";
+// 	char	**arr;
+// 	int	i;
+// 	arr = ft_split(str, ' ');
+// 	while (i < 3)
+// 	{
+// 		printf("la palabra numero %d es: %s\n", i, arr[i]);
+// 		free (arr[i]);
+// 		i++;
+// 	}
+// 	free (arr);
+// 	return (0);
+// }

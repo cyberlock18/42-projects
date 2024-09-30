@@ -6,15 +6,15 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 20:13:34 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/19 22:13:44 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/29 03:54:45 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_space(int c)
+static int	ft_space(int c)
 {
-	while (c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == 32)
+	while ((c >= 9 && c <= 13) || c == 32)
 		return (1);
 	return (0);
 }

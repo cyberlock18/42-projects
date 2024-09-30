@@ -6,15 +6,13 @@
 #    By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/23 18:52:06 by ruortiz-          #+#    #+#              #
-#    Updated: 2024/09/23 20:03:00 by ruortiz-         ###   ########.fr        #
+#    Updated: 2024/09/29 00:54:14 by ruortiz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIB = ar rcs
-
 NAME = libft.a
 
-CC	= gcc
+CC = cc
 CFLAG = -Wall -Wextra -Werror
 
 SRC = \
@@ -26,20 +24,25 @@ SRC = \
 	ft_memmove.c ft_isprint.c ft_isascii.c ft_isalnum.c ft_strchr.c \
 	ft_strrchr.c ft_tolower.c ft_toupper.c ft_memset.c ft_isdigit.c \
 	ft_isalpha.c
-OBJ = $(SRC:.c=.o)
 
-INCLUDE	= libft.h
+BONUS = \
+	ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstadd_front_bonus.c \
+	ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
+	ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+
+OBJ = $(SRC:.c=.o)
+OBJS_BONUS = $(BONUS:.c=.o)
+INCLUDE = libft.h
 	
-RM	= rm -f
+RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(INCLUDE)
-	$(LIB) $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC)
-	gcc -nostartfiles -shared -o libft.so $(OBJ)
+bonus: $(OBJS_BONUS)
+	@make $(NAME) OBJ="$(OBJ) $(OBJS_BONUS)"
 
 %.o: %.c
 	$(CC) $(CFLAG) -c $< -o $@
@@ -48,6 +51,8 @@ clean:
 	$(RM) $(OBJ) $(OBJS_BONUS)
 
 fclean: clean
-	$(RM) $(RMFLAG) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
+
+

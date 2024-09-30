@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:54:32 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/18 22:32:04 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:15:33 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,5 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
+#include <stdio.h>
+

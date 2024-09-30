@@ -6,13 +6,13 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 20:28:36 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/09/23 20:07:36 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/09/28 22:08:24 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_num_leng(long num)
+static int	ft_num_leng(long num)
 {
 	int	i;
 
@@ -35,26 +35,26 @@ char	*ft_itoa(int n)
 	char	*sol;
 	int		pos;
 	int		lng;
+	long	num;
 
-	lng = ft_num_leng(n);
+	num = (long)n;
+	lng = ft_num_leng(num);
 	sol = (char *)malloc((lng + 1) * sizeof(char));
 	if (!sol)
 		return (NULL);
+	sol[lng] = '\0';
 	pos = lng - 1;
-	if (n < 0)
+	if (num < 0)
 	{
-		if (n == -2147483648)
-			return ("-2147483648");
-		n *= -1;
 		sol[0] = '-';
+		num *= -1;
 	}
-	while (n > 9)
+	while (num > 9)
 	{
-		sol[pos] = (n % 10) + '0';
-		n = n / 10;
+		sol[pos] = (num % 10) + '0';
+		num /= 10;
 		pos--;
 	}
-	if (n <= 9)
-		sol[pos] = n + '0';
+	sol[pos] = num + '0';
 	return (sol);
 }
