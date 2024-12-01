@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:18:43 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/11/03 20:40:54 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:33:23 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,27 @@ void	handle_cmd(char *cmd, char **envp)
 	char	**args;
 
 	args = ft_split(cmd, ' ');
-	if (!args)
-		exit(1);
+	if (!args || !args[0])
+	{
+		ft_print_error("Command not found", cmd, 1, 2);
+		exit(127);
+	}
 	path = pathseek(args[0], envp);
 	if (!path)
 	{
+		ft_print_error("Command not found", args[0], 1, 2);
 		freedoublepointer(args);
-		ft_printf("Command not found: %s\n", args[0]);
-		exit(1);
+		exit(127);
 	}
 	if (execve(path, args, envp) == -1)
 	{
-		freedoublepointer(args);
-		free(path);
 		ft_printf("Failed to execute command: %s\n", args[0]);
-		exit(1);
+		free(path);
+		freedoublepointer(args);
+		exit(126);
 	}
-	freedoublepointer(args);
 	free(path);
+	freedoublepointer(args);
 }
 
 void	freedoublepointer(char **ptr)

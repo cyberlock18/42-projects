@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:29:47 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/11/03 20:44:10 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/11/18 23:19:42 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,19 @@ int	main(int argc, char *argv[], char *envp[])
 	int		pipefd[2];
 	pid_t	pid1;
 	pid_t	pid2;
+	int		status;
 
 	validate_args(argc);
 	create_pipes(pipefd);
 	pid1 = fork();
 	handle_fork_error(pid1, "Fork error for first child");
 	if (pid1 == 0)
-	{
 		first_child(pipefd, argv[1], argv[2], envp);
-	}
 	pid2 = fork();
 	handle_fork_error(pid2, "Fork error for second child");
 	if (pid2 == 0)
-	{
 		second_child(pipefd, argv[3], argv[4], envp);
-	}
 	close_pipes(pipefd);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	check_exec_status(pid2, &status, argv[3]);
 	return (0);
 }

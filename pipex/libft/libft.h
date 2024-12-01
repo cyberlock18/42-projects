@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:49:04 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/11/02 18:58:37 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/11/26 21:40:34 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 # define LIBFT_H
 
+# include "printf.h"
 # include <stdlib.h>
 # include <string.h>
-# include "printf.h"
 # include <unistd.h>
 
 typedef struct s_list
@@ -25,7 +25,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-int					ft_atoi(const char *nptr);
+int					ft_atoi(const char *ps);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
 int					ft_isalnum(int c);
