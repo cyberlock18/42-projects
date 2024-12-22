@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:13:19 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/12/19 08:35:00 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:13:16 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ void	pb(t_node **stack_a, t_node **stack_b)
 	push_node(stack_b, stack_a);
 	ft_printf("pb\n");
 }
-

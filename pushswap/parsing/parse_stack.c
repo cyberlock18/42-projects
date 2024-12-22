@@ -6,13 +6,13 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:16:15 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/12/18 21:44:09 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:15:59 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
 
- t_node	*create_node(int value)
+t_node	*create_node(int value)
 {
 	t_node	*new_node;
 
@@ -27,7 +27,7 @@
 	return (new_node);
 }
 
- void	add_node_to_stack(t_node **stack, t_node *new_node)
+void	add_node_to_stack(t_node **stack, t_node *new_node)
 {
 	t_node	*last;
 
@@ -65,7 +65,6 @@ t_node	*parse_stack(int argc, char **argv)
 	return (stack);
 }
 
-
 void	free_stack(t_node **stack)
 {
 	t_node	*current;
@@ -82,10 +81,11 @@ void	free_stack(t_node **stack)
 	}
 	*stack = NULL;
 }
+
 int	stack_size(t_node *stack)
 {
 	int	size;
-	
+
 	size = 0;
 	while (stack)
 	{

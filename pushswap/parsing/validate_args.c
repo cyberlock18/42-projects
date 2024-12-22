@@ -6,13 +6,13 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:11:28 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/12/21 19:50:16 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:20:50 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
 
- int	is_valid_number(const char *str)
+int	is_valid_number(const char *str)
 {
 	if (*str == '-' || *str == '+')
 		str++;
@@ -26,16 +26,27 @@
 	}
 	return (1);
 }
- int	ft_atoi_safe(const char *str, int *error)
+
+static const char	*parse_sign(const char *str, int *sign)
+{
+	*sign = 1;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			*sign = -1;
+		str++;
+	}
+	return (str);
+}
+
+int	ft_atoi_safe(const char *str, int *error)
 {
 	long	result;
 	int		sign;
 
-	result = 0;
-	sign = 1;
 	*error = 0;
-	if (*str == '-' || *str == '+')
-		sign = (*str++ == '-') ? -1 : 1;
+	result = 0;
+	str = parse_sign(str, &sign);
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
@@ -44,7 +55,8 @@
 			return (0);
 		}
 		result = result * 10 + (*str - '0');
-		if ((sign == 1 && result > MAX_INT) || (sign == -1 && -result < MIN_INT))
+		if ((sign == 1 && result > MAX_INT)
+			|| (sign == -1 && (-result) < MIN_INT))
 		{
 			*error = 1;
 			return (0);
@@ -53,6 +65,7 @@
 	}
 	return ((int)(result * sign));
 }
+
 int	has_duplicates(char **args, int size)
 {
 	int	i;
@@ -67,19 +80,18 @@ int	has_duplicates(char **args, int size)
 		j = i + 1;
 		value_i = ft_atoi_safe(args[i], &error);
 		if (error)
-			return (1); // Duplicado debido a un número inválido
+			return (1);
 		while (j < size)
 		{
 			value_j = ft_atoi_safe(args[j], &error);
 			if (!error && value_i == value_j)
-				return (1); // Duplicado encontrado
+				return (1);
 			j++;
 		}
 		i++;
 	}
 	return (0);
 }
-
 
 int	validate_args(int argc, char **argv)
 {
@@ -106,4 +118,3 @@ int	validate_args(int argc, char **argv)
 	}
 	return (1);
 }
-
