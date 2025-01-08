@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:58:46 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/08 09:39:33 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:03:04 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,28 @@ char **split_arguments(int argc, char **argv, int *new_argc, int *is_dynamic)
 t_node *build_stack(int argc, char **argv)
 {
     t_node *stack_a;
+    int     i;
+    int     value;
+    int     error;
 
-    (void)argc; // Evitar advertencia de parámetro no usado
     stack_a = NULL;
-    parse_and_store(argv, &stack_a);
-    if (!stack_a)
+    i = 1;
+    while (i < argc)
     {
-        ft_printf("Error\n");
-        exit(1);
+        value = ft_atoi_safe(argv[i], &error);
+        if (error)
+        {
+            ft_printf("Error\n");
+            free_stack(&stack_a);
+            exit(1);
+        }
+        add_node_to_stack(&stack_a, create_node(value));
+        i++;
     }
     assign_indices(stack_a);
     return (stack_a);
 }
+
 
 void parse_and_store(char **argv, t_node **stack)
 {
@@ -66,7 +76,7 @@ void parse_and_store(char **argv, t_node **stack)
     while (argv[i])
     {
         trim = ft_strtrim(argv[i], " ");
-        if (!trim || !ft_strlen(trim) || !validate_input(trim)) // Valida entrada
+        if (!trim || !ft_strlen(trim) || !validate_input(trim))
             handle_error(stack, trim);
         value = ft_atoi_safe(trim, &error);
         free(trim);
@@ -82,13 +92,13 @@ int validate_input(char *arg)
     int i;
 
     i = 0;
-    if (!arg || !ft_strlen(arg)) // Detecta cadena vacía
+    if (!arg || !ft_strlen(arg))
         return (0);
     while (arg[i] == ' ')
         i++;
     if (arg[i] == '-' || arg[i] == '+')
         i++;
-    if (!arg[i]) // Si solo hay un signo sin número, retorna error
+    if (!arg[i])
         return (0);
     while (arg[i])
     {
@@ -108,13 +118,13 @@ int handle_spcs_and_emPargs(int argc, char **argv)
     while (i < argc)
     {
         trim = ft_strtrim(argv[i], " ");
-        if (!trim || ft_strlen(trim) == 0) // Detecta cadenas vacías o solo con espacios
+        if (!trim || ft_strlen(trim) == 0)
         {
             free(trim);
-            return (0); // Error: argumento vacío
+            return (0);
         }
         free(trim);
         i++;
     }
-    return (1); // Todo correcto
+    return (1);
 }

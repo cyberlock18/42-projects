@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:56:51 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/08 09:47:42 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:57:36 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void free_args(char **args, int is_dynamic);
 void handle_error(t_node **stack, char *trim);
  char **allocate_and_split(char *arg, int *count);
  char *clean_argument(const char *arg);
-
+void cleanup_and_exit(t_node **stack_a, char **args, int new_argc, int is_dynamic);
+int process_and_validate_args(int argc, char **argv, char ***args, int *new_argc, int *is_dynamic);
 #endif

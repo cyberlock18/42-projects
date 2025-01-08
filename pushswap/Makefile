@@ -11,6 +11,7 @@ SRCS = main.c \
        parsing/parse_stack.c \
 	   parsing/parsing_plus.c \
 	   parsing/parsing_plus1.c\
+	   parsing/parsing_plus2.c\
        operations/swap.c \
        operations/push.c \
        operations/rotate.c \
