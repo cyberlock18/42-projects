@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:40:13 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/12/22 15:42:44 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:51:20 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,3 @@ void	sort_small_stack(t_node **stack_a, t_node **stack_b)
 		push_and_sort(stack_a, stack_b, size);
 }
 
-int	find_position(t_node *stack, int target_index)
-{
-	int	position;
-
-	position = 0;
-	while (stack)
-	{
-		if (stack->index == target_index)
-			return (position);
-		position++;
-		stack = stack->next;
-	}
-	return (-1);
-}

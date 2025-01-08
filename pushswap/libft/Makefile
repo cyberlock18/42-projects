@@ -13,7 +13,7 @@
 NAME = libft.a
 
 CC = cc
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g
 
 SRC = \
 	ft_strdup.c ft_calloc.c ft_strlcat.c ft_strlcpy.c \

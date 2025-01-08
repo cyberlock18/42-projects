@@ -1,6 +1,6 @@
 NAME = push_swap
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 CC = cc
 
 LIBFT_DIR = ./libft
@@ -9,6 +9,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = main.c \
        parsing/validate_args.c \
        parsing/parse_stack.c \
+	   parsing/parsing_plus.c \
+	   parsing/parsing_plus1.c\
        operations/swap.c \
        operations/push.c \
        operations/rotate.c \

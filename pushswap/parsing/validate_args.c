@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:11:28 by ruortiz-          #+#    #+#             */
-/*   Updated: 2024/12/22 18:20:50 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:21:14 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_atoi_safe(const char *str, int *error)
 		}
 		result = result * 10 + (*str - '0');
 		if ((sign == 1 && result > MAX_INT)
-			|| (sign == -1 && (-result) < MIN_INT))
+			|| (sign == -1 && -result < MIN_INT))
 		{
 			*error = 1;
 			return (0);
