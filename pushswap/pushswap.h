@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:56:51 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/08 12:57:36 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:13:56 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct s_node
 	struct s_node	*prev;
 	struct s_node	*target_node;
 }					t_node;
+typedef struct s_args_info
+{
+    int new_argc;
+    int is_dynamic;
+} t_args_info;
+
 
 void sa(t_node **stack_a);
 void sb(t_node **stack_b);
@@ -54,7 +60,6 @@ void	sort_large_stack(t_node **stack_a, t_node **stack_b);
 int	ft_atoi_safe(const char *str, int *error);
 void handle_sorting(t_node **stack_a, t_node **stack_b, int argc);
 int	stack_size(t_node *stack);
-int find_position(t_node *stack, int target_index);
 int validate_input(char *arg);
 int handle_spcs_and_emPargs(int argc, char **argv);
 void parse_and_store(char **argv, t_node **stack);
@@ -70,6 +75,7 @@ void free_args(char **args, int is_dynamic);
 void handle_error(t_node **stack, char *trim);
  char **allocate_and_split(char *arg, int *count);
  char *clean_argument(const char *arg);
-void cleanup_and_exit(t_node **stack_a, char **args, int new_argc, int is_dynamic);
-int process_and_validate_args(int argc, char **argv, char ***args, int *new_argc, int *is_dynamic);
+void cleanup_and_exit(t_node **stack_a, char **args, t_args_info *info);
+int process_and_validate_args(int argc, char **argv, char ***args, t_args_info *info);
+int	find_position(t_node *stack, int target_index);
 #endif
