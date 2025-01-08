@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:49:01 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/08 12:58:12 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:09:40 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,25 @@ void handle_sorting(t_node **stack_a, t_node **stack_b, int argc)
 
 int main(int argc, char **argv)
 {
-    t_node  *stack_a;
-    t_node  *stack_b;
-    char    **args;
-    int     new_argc;
-    int     is_dynamic;
+    t_node      *stack_a;
+    t_node      *stack_b;
+    char        **args;
+    t_args_info info;
 
     if (argc <= 2)
         return (0);
-    if (!process_and_validate_args(argc, argv, &args, &new_argc, &is_dynamic))
+    if (!process_and_validate_args(argc, argv, &args, &info))
         return (1);
-    stack_a = build_stack(new_argc, args);
+    stack_a = build_stack(info.new_argc, args);
     stack_b = NULL;
     if (is_sorted(stack_a))
     {
-        cleanup_and_exit(&stack_a, args, new_argc, is_dynamic);
+        cleanup_and_exit(&stack_a, args, &info);
         return (0);
     }
-    handle_sorting(&stack_a, &stack_b, new_argc);
-    cleanup_and_exit(&stack_a, args, new_argc, is_dynamic);
+    handle_sorting(&stack_a, &stack_b, info.new_argc);
+    cleanup_and_exit(&stack_a, args, &info);
     free_stack(&stack_b);
     return (0);
 }
+
