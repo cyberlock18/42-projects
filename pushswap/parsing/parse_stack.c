@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:16:15 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/08 08:37:58 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:03:57 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,22 @@ t_node	*parse_stack(int argc, char **argv)
 	return (stack);
 }
 
-void free_stack(t_node **stack)
+void	free_stack(t_node **stack)
 {
-    t_node *current;
-    t_node *temp;
+	t_node	*current;
+	t_node	*temp;
 
-    if (!stack || !*stack) // Verificar que stack no sea NULL
-        return;
-    current = *stack;
-    while (current)
-    {
-        temp = current->next;
-        free(current);
-        current = temp;
-    }
-    *stack = NULL; // Asignar NULL al puntero principal
+	if (!stack || !*stack)
+		return ;
+	current = *stack;
+	while (current)
+	{
+		temp = current->next;
+		free(current);
+		current = temp;
+	}
+	*stack = NULL;
 }
-
 
 int	stack_size(t_node *stack)
 {

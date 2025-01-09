@@ -95,4 +95,3 @@ void	sort_small_stack(t_node **stack_a, t_node **stack_b)
 	else
 		push_and_sort(stack_a, stack_b, size);
 }
-
