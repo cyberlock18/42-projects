@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:49:01 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/08 21:09:40 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:14:53 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 	char		**args;
 	t_args_info	info;
 
-	if (argc <= 2)
+	if (argc < 1)
 		return (0);
 	if (!process_and_validate_args(argc, argv, &args, &info))
 		return (1);
