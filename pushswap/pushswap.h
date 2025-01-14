@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:56:51 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/09 12:49:45 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:48:37 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int					has_duplicates(char **args, int size);
 int					is_valid_number(const char *str);
 t_node				*create_node(int value);
 void				add_node_to_stack(t_node **stack, t_node *new_node);
-t_node				*parse_stack(int argc, char **argv);
 void				free_stack(t_node **stack);
 void				sort_small_stack(t_node **stack_a, t_node **stack_b);
 void				sort_large_stack(t_node **stack_a, t_node **stack_b);

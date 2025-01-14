@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:16:15 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/09 13:03:57 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:42:41 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,6 @@ void	add_node_to_stack(t_node **stack, t_node *new_node)
 		last = last->next;
 	last->next = new_node;
 	new_node->prev = last;
-}
-
-t_node	*parse_stack(int argc, char **argv)
-{
-	t_node	*stack;
-	t_node	*new_node;
-	int		i;
-
-	stack = NULL;
-	i = 1;
-	while (i < argc)
-	{
-		new_node = create_node(atoi(argv[i]));
-		if (!new_node)
-		{
-			free_stack(&stack);
-			return (NULL);
-		}
-		add_node_to_stack(&stack, new_node);
-		i++;
-	}
-	return (stack);
 }
 
 void	free_stack(t_node **stack)
