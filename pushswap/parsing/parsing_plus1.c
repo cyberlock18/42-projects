@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:58:46 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/12 18:18:39 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:20:27 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ char	**split_arguments(int argc, char **argv, int *new_argc, int *is_dynamic)
 		*new_argc = count;
 		return (args);
 	}
-	*new_argc = argc;
+	*new_argc = argc - 1;
 	*is_dynamic = 0;
-	return (argv);
+	return (argv + 1);
 }
 
 t_node	*build_stack(int argc, char **argv)
@@ -47,7 +47,7 @@ t_node	*build_stack(int argc, char **argv)
 	int		error;
 
 	stack_a = NULL;
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
 		value = ft_atoi_safe(argv[i], &error);
@@ -71,7 +71,7 @@ void	parse_and_store(char **argv, t_node **stack)
 	int		value;
 	int		error;
 
-	i = 1;
+	i = 0;
 	while (argv[i])
 	{
 		trim = ft_strtrim(argv[i], " ");
@@ -96,7 +96,11 @@ int	validate_input(char *arg)
 	while (arg[i] == ' ')
 		i++;
 	if (arg[i] == '-' || arg[i] == '+')
+	{
+		if (arg[i + 1] == '-' || arg[i + 1] == '+')
+			return (0);
 		i++;
+	}
 	if (!arg[i])
 		return (0);
 	while (arg[i])
@@ -113,7 +117,7 @@ int	handle_spcs_and_empargs(int argc, char **argv)
 	char	*trim;
 	int		i;
 
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
 		trim = ft_strtrim(argv[i], " ");

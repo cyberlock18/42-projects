@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:49:01 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/12 18:14:53 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:22:29 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ int	main(int argc, char **argv)
 	char		**args;
 	t_args_info	info;
 
-	if (argc < 1)
+	if (argc < 2)
 		return (0);
 	if (!process_and_validate_args(argc, argv, &args, &info))
+		return (1);
+	if (!args)
 		return (1);
 	stack_a = build_stack(info.new_argc, args);
 	stack_b = NULL;

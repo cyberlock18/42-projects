@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:11:28 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/12 18:39:02 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:22:29 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 int	is_valid_number(const char *str)
 {
 	if (*str == '-' || *str == '+')
+	{
+		if (*(str + 1) == '-' || *(str + 1) == '+')
+			return (0);
 		str++;
+	}
 	if (!*str)
 		return (0);
 	while (*str)
@@ -100,21 +104,17 @@ int	validate_args(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
+		if (!is_valid_number(argv[i]))
+			return (0);
 		ft_atoi_safe(argv[i], &error);
 		if (error)
-		{
-			ft_putstr_fd("Error\n", 2);
 			return (0);
-		}
 		i++;
 	}
-	if (has_duplicates(argv + 1, argc - 1))
-	{
-		ft_putstr_fd("Error\n", 2);
+	if (has_duplicates(argv, argc))
 		return (0);
-	}
 	return (1);
 }
