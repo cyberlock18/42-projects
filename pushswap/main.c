@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:49:01 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/14 14:22:29 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:02:39 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,16 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!process_and_validate_args(argc, argv, &args, &info))
 		return (1);
-	if (!args)
-		return (1);
+	if (!args || info.new_argc == 1)
+	{
+		if (info.is_dynamic)
+			free_args(args, info.new_argc);
+		return (0);
+	}
 	stack_a = build_stack(info.new_argc, args);
 	stack_b = NULL;
 	if (is_sorted(stack_a))
-	{
-		cleanup_and_exit(&stack_a, args, &info);
-		return (0);
-	}
+		return (cleanup_and_exit(&stack_a, args, &info), 0);
 	handle_sorting(&stack_a, &stack_b, info.new_argc);
 	cleanup_and_exit(&stack_a, args, &info);
 	free_stack(&stack_b);

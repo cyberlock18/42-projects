@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:11:28 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/14 14:22:29 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:00:44 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 int	is_valid_number(const char *str)
 {
-	if (*str == '-' || *str == '+')
-	{
-		if (*(str + 1) == '-' || *(str + 1) == '+')
-			return (0);
-		str++;
-	}
-	if (!*str)
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
 		return (0);
-	while (*str)
+	while (str[i])
 	{
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(str[i]))
 			return (0);
-		str++;
+		i++;
 	}
 	return (1);
 }

@@ -28,7 +28,7 @@ GREEN = \033[32m
 all: $(LIBFT) header $(NAME)
 
 $(LIBFT): 
-	@$(MAKE) -C $(LIBFT_DIR) all 
+	@$(MAKE) -C $(LIBFT_DIR) all  > /dev/null 2>&1
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) 

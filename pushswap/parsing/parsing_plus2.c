@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:53:28 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/14 14:22:29 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:58:07 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	process_and_validate_args(int argc, char **argv, char ***args,
 	{
 		if (info->is_dynamic && *args)
 			free_args(*args, info->new_argc);
-		write(2, "Error\n", 6);
+		if (ft_strchr(argv[1], 'a') || !is_valid_number(argv[1]))
+			write(2, "Error\n", 6);
 		return (0);
 	}
 	return (1);
