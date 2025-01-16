@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 MLX = /home/ruortiz-/42-projects/fract-ol/minilibx-linux/libmlx.a -lX11 -lXext -lm
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
-SRCS = main.c mandelbrot.c julia.c minilibx-utils.c
+SRCS = main.c mandelbrot.c julia.c minilibx-utils.c \
+	   color-utils.c
 OBJS = $(SRCS:.c=.o)
 HEADER = fractol.h
 
