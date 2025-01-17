@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:37:07 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:32:46 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:54:17 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,30 @@ int resize_hook(t_data *data)
     return (0);
 }
 
+void init_data(t_data *data)
+{
+    data->color_shift = 0;
+    data->zoom = 1.0;
+    data->offset_x = 0.0;
+    data->mlx = mlx_init();
+    mlx_get_screen_size(data->mlx, &data->width, &data->height);
+    data->win = mlx_new_window(data->mlx, data->width,
+            data->height, "fract-ol");
+    data->img = mlx_new_image(data->mlx, data->width, data->height);
+    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+            &data->line_length, &data->endian);
+}
+
+int close_window_properly(t_data *data)
+{
+    mlx_destroy_image(data->mlx, data->img);
+    mlx_destroy_window(data->mlx, data->win);
+    mlx_destroy_display(data->mlx);
+    free(data->mlx);
+    exit(0);
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_data  data;
@@ -45,19 +69,7 @@ int main(int argc, char **argv)
     if (argc < 2 || (ft_strcmp(argv[1], "mandelbrot") != 0 &&
                      ft_strcmp(argv[1], "julia") != 0))
         show_help();
-    
-    data.mlx = mlx_init();
-    mlx_get_screen_size(data.mlx, &data.width, &data.height);
-    data.win = mlx_new_window(data.mlx, data.width, data.height, "fract-ol");
-    data.img = mlx_new_image(data.mlx, data.width, data.height);
-    data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
-                                 &data.line_length, &data.endian);
-
-    // Inicializar variables de zoom y desplazamiento
-    data.zoom = 1.0;
-    data.offset_x = 0.0;
-    data.offset_y = 0.0;
-
+    init_data(&data);
     if (ft_strcmp(argv[1], "mandelbrot") == 0) {
         data.fractal_type = 1;
         mandelbrot(&data);
@@ -69,8 +81,8 @@ int main(int argc, char **argv)
         data.julia_im = ft_atof(argv[3]);
         render_julia_set(&data, data.julia_real, data.julia_im);
     }
-
     mlx_hook(data.win, ConfigureNotify, StructureNotifyMask, resize_hook, &data);
+    mlx_hook(data.win, 17, 0, close_window_properly, &data);
     handle_hooks(&data);
     mlx_loop(data.mlx);
     return (0);

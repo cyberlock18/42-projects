@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 13:13:27 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:30:21 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:54:17 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,17 @@ typedef struct s_data {
     int     bits_per_pixel;
     int     line_length;
     int     endian;
-    int     width;   // Ancho de la ventana
-    int     height;  // Alto de la ventana
-    int     fractal_type;  // 1 para Mandelbrot, 2 para Julia
-    double  julia_real;    // Constante real para Julia
-    double  julia_im;      // Constante imaginaria para Julia
+    int     width;
+    int     height;
     double  zoom;
     double  offset_x;
     double  offset_y;
-    double  min_re;
-    double  max_re;
-    double  min_im;
-    double  max_im;
+    int     fractal_type;
+    double  julia_real;
+    double  julia_im;
+    int     color_shift; // Nuevo campo para el desplazamiento del color
 }               t_data;
+
 
 // Function prototypes
 void    mandelbrot(t_data *data);
@@ -53,7 +51,7 @@ void    put_pixel(t_data *data, int x, int y, int color);
 void    show_help(void);
 int     mouse_hooks(int button, int x, int y, t_data *data); // Modificada esta línea
 int     resize_hook(t_data *data);
-int     close_window(t_data *data);
+int     close_window_properly(t_data *data);
 int     key_hooks(int keycode, t_data *data);
 int calculate_color(int iteration, int max_iter, int shift);
 
