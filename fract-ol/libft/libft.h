@@ -62,6 +62,8 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strrchr(const char *str, int c);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+// Añadir el nuevo prototipo
+int					ft_is_valid_float(const char *str);
 // bonus
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);

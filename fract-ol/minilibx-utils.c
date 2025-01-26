@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 19:13:15 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:54:17 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/26 19:39:29 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,56 +20,51 @@ int close_window(t_data *data)
     return (0);
 }
 
-void handle_arrow_keys(int keycode, t_data *data)
-{
-    if (keycode == 65361)
-        data->offset_x -= 0.1 / data->zoom;
-    else if (keycode == 65363)
-        data->offset_x += 0.1 / data->zoom;
-    else if (keycode == 65362)
-        data->offset_y -= 0.1 / data->zoom;
-    else if (keycode == 65364)
-        data->offset_y += 0.1 / data->zoom;
-    if (keycode >= 65361 && keycode <= 65364)
-        resize_hook(data);
-}
-
 int key_hooks(int keycode, t_data *data)
 {
-    if (keycode == 65307) // ESC key
-        return (close_window_properly(data));
-    else if (keycode == 99)
+    // Para debug, usar ft_printf en lugar de printf
+    // ft_printf("Keycode: %d\n", keycode);
+    
+    if (keycode == 65307) // ESC
+        close_window(data);
+    else if (keycode == 65361) // Flecha izquierda
+        data->offset_x -= 0.1 / data->zoom;
+    else if (keycode == 65363) // Flecha derecha
+        data->offset_x += 0.1 / data->zoom;
+    else if (keycode == 65362) // Flecha arriba
+        data->offset_y -= 0.1 / data->zoom;
+    else if (keycode == 65364) // Flecha abajo
+        data->offset_y += 0.1 / data->zoom;
+    else if (keycode == 43 || keycode == 61) // Tecla + (tanto en teclado normal como numérico)
     {
-        data->color_shift = (data->color_shift + 8) % 24;
+        data->color_shift = (data->color_shift + 1) % 6;
         resize_hook(data);
+        return (0);
     }
-    else
-        handle_arrow_keys(keycode, data);
+    
+    if (keycode >= 65361 && keycode <= 65364)
+        resize_hook(data);
     return (0);
-}
-
-void handle_zoom(t_data *data, int button, int x, int y)
-{
-    double mouse_re;
-    double mouse_im;
-
-    mouse_re = (x - data->width / 2.0) / (0.25 * data->width * data->zoom) + data->offset_x;
-    mouse_im = (y - data->height / 2.0) / (0.25 * data->height * data->zoom) + data->offset_y;
-    if (button == 4)
-        data->zoom *= 1.2;
-    else if (button == 5)
-        data->zoom /= 1.2;
-    data->offset_x = mouse_re - (x - data->width / 2.0) / (0.25 * data->width * data->zoom);
-    data->offset_y = mouse_im - (y - data->height / 2.0) / (0.25 * data->height * data->zoom);
 }
 
 int mouse_hooks(int button, int x, int y, t_data *data)
 {
-    if (button == 4 || button == 5)
+    double mouse_re = (x - data->width / 2.0) / (0.25 * data->width * data->zoom) + data->offset_x;
+    double mouse_im = (y - data->height / 2.0) / (0.25 * data->height * data->zoom) + data->offset_y;
+
+    if (button == 4) // Zoom in
     {
-        handle_zoom(data, button, x, y);
-        resize_hook(data);
+        data->zoom *= 1.2;
+        data->offset_x = mouse_re - (x - data->width / 2.0) / (0.25 * data->width * data->zoom);
+        data->offset_y = mouse_im - (y - data->height / 2.0) / (0.25 * data->height * data->zoom);
     }
+    else if (button == 5) // Zoom out
+    {
+        data->zoom /= 1.2;
+        data->offset_x = mouse_re - (x - data->width / 2.0) / (0.25 * data->width * data->zoom);
+        data->offset_y = mouse_im - (y - data->height / 2.0) / (0.25 * data->height * data->zoom);
+    }
+    resize_hook(data);
     return (0);
 }
 
@@ -77,7 +72,9 @@ void handle_hooks(t_data *data)
 {
     mlx_key_hook(data->win, key_hooks, data);
     mlx_mouse_hook(data->win, mouse_hooks, data);
+    mlx_hook(data->win, 17, 0, close_window, data);
 }
+
 void put_pixel(t_data *data, int x, int y, int color)
 {
     char *pixel;

@@ -24,7 +24,8 @@ SRC = \
 	ft_memmove.c ft_isprint.c ft_isascii.c ft_isalnum.c ft_strchr.c \
 	ft_strrchr.c ft_tolower.c ft_toupper.c ft_memset.c ft_isdigit.c \
 	ft_isalpha.c ft_printf.c ft_printf_hex.c ft_printf_others.c\
-	get_next_line.c get_next_line_utils.c ft_strcmp.c ft_atof.c
+	get_next_line.c get_next_line_utils.c ft_strcmp.c ft_atof.c \
+	ft_is_valid_float.c
 
 BONUS = \
 	ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstadd_front_bonus.c \

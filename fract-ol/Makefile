@@ -8,7 +8,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = main.c mandelbrot.c julia.c minilibx-utils.c \
 	   color-utils.c
 OBJS = $(SRCS:.c=.o)
-HEADER = fractol.h
+HEADER = fractol.h 
 
 # Reglas
 all: $(NAME)

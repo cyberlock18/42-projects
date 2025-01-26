@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 13:36:14 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:49:52 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/26 19:52:21 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,48 @@ int mandelbrot_iter(double c_re, double c_im)
     return (iteration);
 }
 
-void render_mandelbrot_line(t_data *data, int y)
+static void handle_mandelbrot_colors(t_data *data, int x, int y, int iter)
 {
-    int     x;
-    double  c_re;
-    double  c_im;
-    int     iter;
-    int     color;
+	t_rgb	rgb;
+	double	inner_glow;
+	double	angle;
 
-    x = 0;
-    while (x < data->width)
-    {
-        c_re = (x - data->width / 2.0) / (0.25 * data->width * data->zoom) + data->offset_x;
-        c_im = (y - data->height / 2.0) / (0.25 * data->height * data->zoom) + data->offset_y;
-        iter = mandelbrot_iter(c_re, c_im);
-        color = calculate_color(iter, MAX_ITER, data->color_shift);
-        put_pixel(data, x, y, color);
-        x++;
-    }
+	if (iter == MAX_ITER)
+	{
+		inner_glow = ((x - data->width / 2.0) * (x - data->width / 2.0) +
+			(y - data->height / 2.0) * (y - data->height / 2.0))
+			/ (data->width * data->width);
+		angle = atan2(y - data->height / 2.0, x - data->width / 2.0) +
+			data->color_shift * M_PI / 3;
+		rgb.r = (int)(127 + 127 * sin(angle * 3 + inner_glow));
+		rgb.g = (int)(127 + 127 * sin(angle * 2 + inner_glow * 2));
+		rgb.b = (int)(200 + 55 * sin(angle + inner_glow * 3));
+		set_rgb_values(&rgb);
+		handle_color_shift(data, x, y, rgb);
+	}
+	else
+		handle_exterior_colors(data, x, y, iter);
 }
 
 void mandelbrot(t_data *data)
 {
-    int y;
+    int x, y;
+    double c_re, c_im;
+    int iter;
 
     y = 0;
     while (y < data->height)
     {
-        render_mandelbrot_line(data, y);
+        x = 0;
+        while (x < data->width)
+        {
+            c_re = (x - data->width / 2.0) / (0.25 * data->width * data->zoom) + data->offset_x;
+            c_im = (y - data->height / 2.0) / (0.25 * data->height * data->zoom) + data->offset_y;
+            
+            iter = mandelbrot_iter(c_re, c_im);
+            handle_mandelbrot_colors(data, x, y, iter);
+            x++;
+        }
         y++;
     }
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
