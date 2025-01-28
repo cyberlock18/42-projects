@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 13:13:27 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/26 19:52:21 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/28 07:48:03 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FRACTOL_H
 
 # define MAX_ITER 100
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
