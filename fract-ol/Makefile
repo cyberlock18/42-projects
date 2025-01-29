@@ -6,7 +6,7 @@ MLX = /home/ruortiz-/42-projects/fract-ol/minilibx-linux/libmlx.a -lX11 -lXext -
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = main.c mandelbrot.c julia.c minilibx-utils.c \
-	   color-utils.c
+	   color-utils.c color-transform.c
 OBJS = $(SRCS:.c=.o)
 HEADER = fractol.h 
 

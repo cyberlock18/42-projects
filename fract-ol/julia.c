@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 19:01:21 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/28 07:43:50 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:47:15 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 #define MAX_ITER 100
 
-int calculate_julia_iterations(double real_part, double imaginary_part, double constant_real, double constant_imaginary)
+int	calc_julia_iter(double real_p, double im_p, double c_r, double c_im)
 {
-	double real_squared;
-	double imaginary_squared;
-	int iteration = 0;
+	double	real_squared;
+	double	imaginary_squared;
+	int		iteration;
 
+	iteration = 0;
 	while (iteration < MAX_ITER)
 	{
-		real_squared = real_part * real_part;
-		imaginary_squared = imaginary_part * imaginary_part;
+		real_squared = real_p * real_p;
+		imaginary_squared = im_p * im_p;
 		if (real_squared + imaginary_squared > 4.0)
-			break;
-		imaginary_part = 2 * real_part * imaginary_part + constant_imaginary;
-		real_part = real_squared - imaginary_squared + constant_real;
+			break ;
+		im_p = 2 * real_p * im_p + c_im;
+		real_p = real_squared - imaginary_squared + c_r;
 		iteration++;
 	}
-	return iteration;
+	return (iteration);
 }
 
 static void	calc_interior_color(t_data *data, t_rgb *rgb, int x, int y)
@@ -81,11 +82,13 @@ static void	calculate_julia_colors(t_data *data, int x, int y, int iter)
 		handle_exterior_colors(data, x, y, iter);
 }
 
-void render_julia_set(t_data *data, double constant_real, double constant_imaginary)
+void	render_julia_set(t_data *data, double c_r, double c_im)
 {
-	int x, y;
-	double mapped_re, mapped_im;
-	int iter;
+	double	mapped_re;
+	double	mapped_im;
+	int		x;
+	int		y;
+	int		iter;
 
 	y = 0;
 	while (y < data->height)
@@ -93,10 +96,11 @@ void render_julia_set(t_data *data, double constant_real, double constant_imagin
 		x = 0;
 		while (x < data->width)
 		{
-			mapped_re = (x - data->width / 2.0) / (0.25 * data->width * data->zoom) + data->offset_x;
-			mapped_im = (y - data->height / 2.0) / (0.25 * data->height * data->zoom) + data->offset_y;
-			
-			iter = calculate_julia_iterations(mapped_re, mapped_im, constant_real, constant_imaginary);
+			mapped_re = (x - data->width / 2.0)
+				/ (0.25 * data->width * data->zoom) + data->offset_x;
+			mapped_im = (y - data->height / 2.0)
+				/ (0.25 * data->height * data->zoom) + data->offset_y;
+			iter = calc_julia_iter(mapped_re, mapped_im, c_r, c_im);
 			calculate_julia_colors(data, x, y, iter);
 			x++;
 		}

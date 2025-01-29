@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 13:13:27 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/28 07:48:03 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/29 09:57:52 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,58 @@ typedef struct s_rgb
 	int	b;
 }	t_rgb;
 
-typedef struct s_data {
-    void    *mlx;
-    void    *win;
-    void    *img;
-    char    *addr;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-    int     width;   // Ancho de la ventana
-    int     height;  // Alto de la ventana
-    int     fractal_type;  // 1 para Mandelbrot, 2 para Julia
-    double  julia_real;    // Constante real para Julia
-    double  julia_im;      // Constante imaginaria para Julia
-    double  zoom;
-    double  offset_x;
-    double  offset_y;
-    double  min_re;
-    double  max_re;
-    double  min_im;
-    double  max_im;
-    int     color_shift;    // Añadir esta variable para el cambio de color
-}               t_data;
+typedef struct s_data
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;// Ancho de la ventana
+	int		height;// Alto de la ventana
+	int		fractal_type;// 1 para Mandelbrot, 2 para Julia
+	double	julia_real;// Constante real para Julia
+	double	julia_im;// Constante imaginaria para Julia
+	double	zoom;
+	double	offset_x;
+	double	offset_y;
+	double	min_re;
+	double	max_re;
+	double	min_im;
+	double	max_im;
+	int		color_shift;// Añadir esta variable para el cambio de color
+}	t_data;
+
+typedef struct s_color_params
+{
+	double	v;
+	double	p;
+	double	q;
+	double	t;
+}	t_color_params;
 
 // Function prototypes
-void    mandelbrot(t_data *data);
-void    render_julia_set(t_data *data, double constant_real, double constant_imaginary);
-void    handle_hooks(t_data *data);
-void    put_pixel(t_data *data, int x, int y, int color);
-void    show_help(void);
-void    validate_julia_args(char **argv);
-void    set_rgb_values(t_rgb *rgb);
-void    handle_color_shift(t_data *data, int x, int y, t_rgb rgb);
-void    handle_exterior_colors(t_data *data, int x, int y, int iter);
-int     mouse_hooks(int button, int x, int y, t_data *data);
-int     resize_hook(t_data *data);
-int     close_window(t_data *data);
-int     key_hooks(int keycode, t_data *data);
-int     calculate_color(int iteration, int max_iter, int shift);
+void	mandelbrot(t_data *data);
+void	render_julia_set(t_data *data, double constant_real,
+			double constant_imaginary);
+void	handle_hooks(t_data *data);
+void	put_pixel(t_data *data, int x, int y, int color);
+void	show_help(void);
+void	validate_julia_args(char **argv);
+void	set_rgb_values(t_rgb *rgb);
+void	handle_color_shift(t_data *data, int x, int y, t_rgb rgb);
+void	handle_exterior_colors(t_data *data, int x, int y, int iter);
+int		mouse_hooks(int button, int x, int y, t_data *data);
+int		resize_hook(t_data *data);
+int		close_window(t_data *data);
+int		key_hooks(int keycode, t_data *data);
+int		calculate_color(int iteration, int max_iter, int shift);
+
+// Añadir nuevos prototipos
+void	hsv_to_rgb(double h, double s, double v, int *rgb);
+void	set_color_values(int hi, t_color_params params, int *rgb);
+void	set_rgb(int *rgb, double r, double g, double b);
 
 #endif
