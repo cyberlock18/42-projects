@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:27:08 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/28 20:29:35 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:44:41 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,15 @@ void	handle_exterior_colors(t_data *data, int x, int y, int iter)
 	t_rgb	rgb;
 	double	t;
 
+	if (iter == MAX_ITER)
+	{
+		put_pixel(data, x, y, 0x000000);
+		return ;
+	}
 	t = (double)iter / MAX_ITER;
-	rgb.b = (int)(255 * (0.8 + 0.2 * sin(t * 10)));
-	rgb.g = (int)(255 * (0.6 + 0.2 * sin(t * 8)));
-	rgb.r = (int)(255 * 0.2);
+	rgb.r = (int)(9 * (1 - t) * t * t * t * 255);
+	rgb.g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
+	rgb.b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 	set_rgb_values(&rgb);
 	put_pixel(data, x, y, (rgb.r << 16) | (rgb.g << 8) | rgb.b);
 }
@@ -64,16 +69,16 @@ void	handle_exterior_colors(t_data *data, int x, int y, int iter)
 int	calculate_color(int iteration, int max_iter, int shift)
 {
 	double	t;
-	double	hsv[3];
 	int		rgb[3];
 
 	if (iteration == max_iter)
 		return (0x000000);
-	t = (double)iteration + 1 - log2(log2(iteration + 1));
-	t = t * 20.0 + shift * 5.0;
-	hsv[0] = fmod(t * 0.1 + (double)iteration / max_iter * 360.0, 360.0);
-	hsv[1] = 0.8 + 0.2 * sin(t * 0.05);
-	hsv[2] = 0.7 + 0.3 * sin(t * 0.03) * cos(t * 0.02);
-	hsv_to_rgb(hsv[0], hsv[1], hsv[2], rgb);
+	t = (double)iteration / max_iter;
+	t = t + shift * 0.1;
+	while (t > 1.0)
+		t -= 1.0;
+	rgb[0] = (int)(sin(2 * M_PI * t) * 127.5 + 127.5);
+	rgb[1] = (int)(sin(2 * M_PI * (t + 0.3333)) * 127.5 + 127.5);
+	rgb[2] = (int)(sin(2 * M_PI * (t + 0.6666)) * 127.5 + 127.5);
 	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }
