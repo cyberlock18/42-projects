@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 13:13:27 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/29 09:57:52 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:31:06 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_data
 	double	min_im;
 	double	max_im;
 	int		color_shift;// Añadir esta variable para el cambio de color
+	int		color_mode;
+	int		max_iter;
 }	t_data;
 
 typedef struct s_color_params

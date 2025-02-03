@@ -2,13 +2,20 @@
 NAME = fractol
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX = /home/ruortiz-/42-projects/fract-ol/minilibx-linux/libmlx.a -lX11 -lXext -lm
+MLX = ./minilibx-linux/libmlx.a -lX11 -lXext -lm
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
-SRCS = main.c mandelbrot.c julia.c minilibx-utils.c \
-	   color-utils.c color-transform.c
+
+SRCS = main.c \
+       mandelbrot.c \
+       julia.c \
+       minilibx-utils.c \
+       color-utils.c \
+       color-transform.c \
+       init_fractal.c \
+
 OBJS = $(SRCS:.c=.o)
-HEADER = fractol.h 
+HEADER = fractol.h
 
 # Reglas
 all: $(NAME)
@@ -29,10 +36,4 @@ fclean: clean
 
 re: fclean all
 
-bonus: all
-
-# Dependencias
-%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

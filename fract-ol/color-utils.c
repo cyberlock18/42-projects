@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:27:08 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/29 23:44:41 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:44:24 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ int	calculate_color(int iteration, int max_iter, int shift)
 {
 	double	t;
 	int		rgb[3];
+	double	offset; // Añadido para desplazar el punto de referencia
 
 	if (iteration == max_iter)
 		return (0x000000);
 	t = (double)iteration / max_iter;
-	t = t + shift * 0.1;
+	offset = 0.25; // Desplazar el punto de referencia a una esquina
+	t = t + shift * 0.1 + offset;
 	while (t > 1.0)
 		t -= 1.0;
 	rgb[0] = (int)(sin(2 * M_PI * t) * 127.5 + 127.5);
