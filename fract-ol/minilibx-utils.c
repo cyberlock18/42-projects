@@ -6,11 +6,12 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 19:13:15 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/01/29 09:10:22 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:28:03 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <X11/Xutil.h>
 
 int	close_window(t_data *data)
 {
@@ -26,20 +27,25 @@ int	key_hooks(int keycode, t_data *data)
 		close_window(data);
 	else if (keycode == 65361)
 		data->offset_x -= 0.1 / data->zoom;
+	else if (keycode == XK_o)
+		data->julia_real -= 0.01;
+	else if (keycode == XK_p)
+		data->julia_real += 0.01;
+
 	else if (keycode == 65363)
 		data->offset_x += 0.1 / data->zoom;
 	else if (keycode == 65362)
 		data->offset_y -= 0.1 / data->zoom;
 	else if (keycode == 65364)
 		data->offset_y += 0.1 / data->zoom;
-	else if (keycode == 43 || keycode == 61)
+	else if (keycode == 43 )
 	{
 		data->color_shift = (data->color_shift + 1) % 6;
 		resize_hook(data);
 		return (0);
 	}
-	if (keycode >= 65361 && keycode <= 65364)
-		resize_hook(data);
+//	if (keycode >= 65361 && keycode <= 65364)
+		//resize_hook(data);
 	return (0);
 }
 
@@ -76,6 +82,8 @@ void	handle_hooks(t_data *data)
 {
 	mlx_key_hook(data->win, key_hooks, data);
 	mlx_mouse_hook(data->win, mouse_hooks, data);
+	mlx_loop_hook(data->mlx, resize_hook, data);
+	mlx_expose_hook(data->win, resize_hook, data);
 	mlx_hook(data->win, 17, 0, close_window, data);
 }
 

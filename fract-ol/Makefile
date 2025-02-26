@@ -11,7 +11,6 @@ SRCS = main.c \
        julia.c \
        minilibx-utils.c \
        color-utils.c \
-       color-transform.c \
        init_fractal.c \
 
 OBJS = $(SRCS:.c=.o)

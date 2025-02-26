@@ -6,7 +6,7 @@
 /*   By: ruortiz- <ruortiz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 13:13:27 by ruortiz-          #+#    #+#             */
-/*   Updated: 2025/02/03 20:31:06 by ruortiz-         ###   ########.fr       */
+/*   Updated: 2025/02/26 20:26:43 by ruortiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,5 @@ int		resize_hook(t_data *data);
 int		close_window(t_data *data);
 int		key_hooks(int keycode, t_data *data);
 int		calculate_color(int iteration, int max_iter, int shift);
-
-// Añadir nuevos prototipos
-void	hsv_to_rgb(double h, double s, double v, int *rgb);
-void	set_color_values(int hi, t_color_params params, int *rgb);
-void	set_rgb(int *rgb, double r, double g, double b);
 
 #endif
