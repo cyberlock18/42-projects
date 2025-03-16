@@ -10,3 +10,12 @@
 [submodule "projects/pipex"]
 	path = projects/pipex
 	url = git@github.com:cyberlock18/pipex.git
+[submodule "projects/printf"]
+	path = projects/printf
+	url = git@github.com:cyberlock18/printf.git
+[submodule "projects/gnl"]
+	path = projects/gnl
+	url = git@github.com:cyberlock18/get_next_line.git
+[submodule "projects/fract-ol"]
+	path = projects/fract-ol
+	url = git@github.com:cyberlock18/fract-ol.git
