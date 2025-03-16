@@ -1,0 +1,12 @@
+[submodule "projects/libft"]
+	path = projects/libft
+	url = git@github.com:cyberlock18/libft.git
+[submodule "projects/philosophers"]
+	path = projects/philosophers
+	url = git@github.com:cyberlock18/philosophers.git
+[submodule "projects/push_swap"]
+	path = projects/push_swap
+	url = git@github.com:cyberlock18/push_swap.git
+[submodule "projects/pipex"]
+	path = projects/pipex
+	url = git@github.com:cyberlock18/pipex.git
